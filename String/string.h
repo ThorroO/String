@@ -15,6 +15,7 @@ public:
     explicit String(size_t size);
     String(const char* inputStr);
     String(const String& other);
+    String(String&& other) noexcept;
     ~String();
 
     void input();
@@ -22,6 +23,7 @@ public:
     static size_t getObjectCount();
 
     String& operator=(const String& other);
+    String& operator=(String&& other) noexcept;
 };
 
 #endif

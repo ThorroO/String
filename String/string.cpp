@@ -26,6 +26,12 @@ String::String(const String& other) : length(other.length) {
     ++objectCount;
 }
 
+String::String(String&& other) noexcept : str(other.str), length(other.length) {
+    other.str = nullptr;
+    other.length = 0;
+    ++objectCount;
+}
+
 String::~String() {
     delete[] str;
     --objectCount;
@@ -33,7 +39,7 @@ String::~String() {
 
 void String::input() {
     char buffer[256];
-    cout << "Enter a string: ";
+    cout << "Enter a string\n\n--> ";
     cin.getline(buffer, 256);
     delete[] str;
     length = strlen(buffer);
@@ -55,6 +61,17 @@ String& String::operator=(const String& other) {
         length = other.length;
         str = new char[length + 1];
         strcpy_s(str, length + 1, other.str);
+    }
+    return *this;
+}
+
+String& String::operator=(String&& other) noexcept {
+    if (this != &other) {
+        delete[] str;
+        str = other.str;
+        length = other.length;
+        other.str = nullptr;
+        other.length = 0;
     }
     return *this;
 }
