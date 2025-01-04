@@ -75,3 +75,30 @@ String& String::operator=(String&& other) noexcept {
     }
     return *this;
 }
+
+char& String::operator[](int index) {
+    if (index < 0 || index >= static_cast<int>(length)) {
+        throw std::out_of_range("Index out of range");
+    }
+    return str[index];
+}
+
+const char& String::operator[](int index) const {
+    if (index < 0 || index >= static_cast<int>(length)) {
+        throw std::out_of_range("Index out of range");
+    }
+    return str[index];
+}
+
+int String::operator()(char ch) const {
+    for (int i = 0; i < length; ++i) {
+        if (str[i] == ch) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+String::operator int() const {
+    return length;
+}

@@ -24,6 +24,13 @@ public:
 
     String& operator=(const String& other);
     String& operator=(String&& other) noexcept;
+
+    char& operator[](int index);
+    const char& operator[](int index) const;
+
+    int operator()(char ch) const;
+
+    operator int() const;
 };
 
 #endif
